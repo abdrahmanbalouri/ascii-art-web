@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Generator</title>
+    <link rel="stylesheet" href="/assets/style.css">
+ 
+</head>
+<body>
+    <div class="container">
+        <h1>ASCII Art Generator</h1>
+        <form action="/generate" method="post">
+            <label for="text"></label>
+            <textarea placeholder="Enter something funny." id="text" name="text" rows="4" style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px; "
+            ></textarea>
+            <br>
+            <label for="font">WRITE:</label>
+            <select name="font" id="font">
+                <option value="thinkertoy.txt">Thinkertoy</option>
+                <option value="shadow.txt">Shadow</option>
+                <option value="standard.txt">standard</option>
+
+            </select>
+            <br>
+            <button type="submit"> ASCII Art</button>
+        </form>
+       
+
+        {{if .Output}}
+        
+        <h2>النتيجة:</h2>
+        <pre>{{.Output}}</pre>
+        {{end}}
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 60%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 500px;
+    overflow: hidden;
+    background-color: #FFF;
+    color: #222;
+    font-family: Courier, monospace;
+    font-weight: normal;
+    font-size: 24px;
+    resize: none;
+    line-height: 40px;
+    padding-left: 100px;
+    padding-right: 10px;
+    padding-top: 45px;
+    padding-bottom: 34px;
+    background-image: url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png);
+    background-repeat: repeat-y, repeat;
+    border-radius: 12px;
+    box-shadow: 0px 2px 14px #000;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+label {
+    color: #220000;
+    animation: colorChange 2s infinite;
+}
+
+@keyframes colorChange {
+    0% {
+        color: #110547;
+    }
+    50% {
+        color: #ff1212;
+    }
+    100% {
+        color: #5f720c;
+    }
+}
+
+select {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+option {
+    color: blueviolet;
+    background-color: white;
+    font-size: 16px;
+    transition: all 0.3s ease; /* Smooth transition */
+    animation: highlightEffect 3s infinite; /* Infinite animation */
+}
+
+@keyframes highlightEffect {
+    0% {
+        color: blueviolet;
+        background-color: white;
+        transform: scale(1);
+    }
+    50% {
+        color: yellowgreen;
+        background-color: lightyellow;
+        transform: scale(1.1);
+    }
+    100% {
+        color: blueviolet;
+        background-color: white;
+        transform: scale(1);
+    }
+}
+
+select:focus {
+    outline: none; /* Removes the outline when the select is focused */
+    border-color: #220000; /* Optional, adds a border color when focused */
+}
+
+pre {
+    color: #000;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: pre-wrap; /* Allows text to wrap inside the pre */
+}
+
