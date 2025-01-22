@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"html/template"
+	
 	"net/http"
 	"os"
 	"strings"
@@ -13,6 +14,10 @@ import (
 type Banner struct {
 	Name  string
 	Lines map[rune][]string
+}
+type data struct{
+	Errr string
+	Kalma string
 }
 
 
@@ -40,16 +45,37 @@ func main() {
 	fmt.Println("star http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
+func renderTemplate(w http.ResponseWriter, tmplPath string, data interface{}, statusCode int) {
+	// Parse the template file
+	tmpl, err := template.ParseFiles(tmplPath)
+	if err != nil {
+		http.Error(w, "Error parsing template: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Set the HTTP status code
+	w.WriteHeader(statusCode)
+
+	// Execute the template with the provided data
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, "Error rendering template: "+err.Error(), http.StatusInternalServerError)
+	}
+}
+
 
 // الصفحة الرئيسية التي تعرض النموذج
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-      http.Error(w, "Page Not Found", 404)
-	  
-		return		
+		// Parse the 404.html template
+		ddddd:=data{
+			Errr: "Error : Page Not Found",
+			Kalma:"makayn walo",
+		}
+		renderTemplate(w,"templates/404.html",ddddd,404)
+		return
 	}
 
-	// Serve the home page template (index.html)
+	// Parse the home page template (index.html)
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -59,6 +85,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	// Execute the home page template
 	tmpl.Execute(w, nil)
 }
+
 // التعامل مع طلب POST لتوليد ASCII Art
 func asciiArtHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -78,14 +105,32 @@ func asciiArtHandler(w http.ResponseWriter, r *http.Request) {
 	lines := strings.Split(inputText, "\n")
 	output := convertToASCIIWithDynamicSpaces(lines, banner)
 	if r.URL.Path != "/generate" {
-		http.Error(w, "not allowed", http.StatusNotFound)
+		ddddd:=data{
+			Errr: "Error : Page Not Found",
+			Kalma:"makayn walo",
+		}
+		renderTemplate(w,"templates/404.html",ddddd,404)
+
 		return
 	}
 	if len(inputText) == 0 {
-		http.Error(w, "StatusInternalServerError", 500)
-		return
+		ddddd:=data{
+			Errr: "Error : Page Not Found",
+			Kalma:"makayn walo",
+		}
+		renderTemplate(w,"templates/404.html",ddddd,500)
+				return
 	}
-	// تمرير البيانات إلى القالب لعرض النتيجة
+	  for _,r:= range inputText{
+		if r <=32 || r >= 126{
+			ddddd:=data{
+				Errr: "bad request",
+				Kalma:"makayn walo",
+			}
+			renderTemplate(w,"templates/404.html",ddddd,400)
+			return
+		}
+	  }
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
